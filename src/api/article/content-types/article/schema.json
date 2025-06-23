@@ -1,0 +1,60 @@
+{
+  "kind": "collectionType",
+  "collectionName": "articles",
+  "info": {
+    "singularName": "article",
+    "pluralName": "articles",
+    "displayName": "Article"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
+    },
+    "main_content": {
+      "type": "blocks"
+    },
+    "publication_date": {
+      "type": "date"
+    },
+    "excerpt": {
+      "type": "text"
+    },
+    "cover_image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "ai_assisted": {
+      "type": "boolean",
+      "default": false
+    },
+    "sport": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::sport.sport"
+    },
+    "categories": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::category.category",
+      "mappedBy": "articles"
+    },
+    "is_esport": {
+      "type": "boolean",
+      "required": false
+    }
+  }
+}
