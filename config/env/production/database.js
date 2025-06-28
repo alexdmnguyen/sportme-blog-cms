@@ -1,7 +1,17 @@
 const { parse } = require("pg-connection-string");
 
+console.log("✅ LOADING PRODUCTION DATABASE CONFIG...");
+
 module.exports = ({ env }) => {
-  const { host, port, database, user, password } = parse(env("DATABASE_URL"));
+  const databaseUrl = env("DATABASE_URL");
+
+  console.log(`✅ Production DATABASE_URL found: ${databaseUrl ? 'Yes' : 'No'}`);
+
+  if (!databaseUrl) {
+    throw new Error("DATABASE_URL environment variable not set for production.");
+  }
+
+  const { host, port, database, user, password } = parse(databaseUrl);
 
   return {
     connection: {
@@ -12,7 +22,7 @@ module.exports = ({ env }) => {
         database,
         user,
         password,
-        ssl: { rejectUnauthorized: false }, // Necessary for Render's PostgreSQL
+        ssl: { rejectUnauthorized: false },
       },
       debug: false,
     },
